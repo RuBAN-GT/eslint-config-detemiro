@@ -1,5 +1,7 @@
 # Generic Eslint rules
 
+[![npm version](https://badge.fury.io/js/eslint-config-detemiro.svg)](https://badge.fury.io/js/eslint-config-detemiro)
+
 The common eslint rules useful for any projects.
 
 ## Description
