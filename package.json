@@ -1,7 +1,7 @@
 {
   "name": "eslint-config-detemiro",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "The best ESLint config for your project.",
   "main": ".eslintrc.js",
   "keywords": [
     "eslint",
@@ -11,7 +11,11 @@
   "author": "Dmitry Ruban",
   "license": "ISC",
   "packageManager": "yarn@4.5.0",
-  "repository": "https://github.com/RuBAN-GT/eslint-config-detemiro",
+  "homepage": "https://github.com/RuBAN-GT/eslint-config-detemiro#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RuBAN-GT/eslint-config-detemiro.git"
+  },
   "files": [
     "README.md",
     "package.json",
