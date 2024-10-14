@@ -24,7 +24,7 @@ yarn add eslint-config-detemiro -D
 2. Add utility dependencies to your project (you can compare them with the `peerDependencies` of this repository):
 
 ```bash
-yarn add eslint prettier @typescript-eslint/parser @typescript-eslint/eslint-plugin eslint-config-prettier eslint-plugin-prettier eslint-plugin-simple-import-sort eslint-plugin-import eslint-config-airbnb-typescript -D
+yarn add eslint prettier @eslint/js eslint eslint-config-prettier globals eslint-plugin-import eslint-plugin-prettier eslint-plugin-simple-import-sort typescript-eslint -D
 ```
 
 3. Connect the `prettier` configuration to your project in `.prettierrc.js`:
@@ -41,18 +41,15 @@ or in json:
 }
 ```
 
-4. Configure your `.eslintrc.js` by example:
+4. Configure your `eslint.config.mjs` by example:
 
 ```javascript
-module.exports = {
-  extends: ['eslint-config-detemiro'],
-  parserOptions: {
-    project: './tsconfig.json',
-    tsconfigRootDir: __dirname,
-    ecmaVersion: 2020,
-    sourceType: 'module',
-  },
-}
+import detemiroConfig from 'eslint-config-detemiro'
+
+export default [
+  ...detemiroConfig,
+  // Your customizations...
+]
 ```
 
 5. You are incredible! Now you can use the `eslint` and `prettier` in your project.
