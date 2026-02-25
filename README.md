@@ -12,6 +12,12 @@ It includes:
 
 - `eslint` configuration.
 - `prettier` rules.
+- project style guide: [`STYLEGUIDE.md`](./STYLEGUIDE.md).
+
+And provides two ready-to-use configs:
+
+- `base` - common rules for most projects.
+- `strict` - additional architectural and naming constraints.
 
 ## Usage
 
@@ -24,7 +30,7 @@ yarn add eslint-config-detemiro -D
 2. Add utility dependencies to your project (you can compare them with the `peerDependencies` of this repository):
 
 ```bash
-yarn add eslint prettier @eslint/js eslint eslint-config-prettier globals eslint-plugin-import eslint-plugin-prettier eslint-plugin-simple-import-sort typescript-eslint -D
+yarn add eslint prettier @eslint/js eslint eslint-config-prettier globals eslint-plugin-import eslint-plugin-prettier eslint-plugin-simple-import-sort typescript-eslint eslint-plugin-project-structure -D
 ```
 
 3. Connect the `prettier` configuration to your project in `.prettierrc.js`:
@@ -44,10 +50,12 @@ or in json:
 4. Configure your `eslint.config.mjs` by example:
 
 ```javascript
-import detemiroConfig from 'eslint-config-detemiro'
+import baseConfig from 'eslint-config-detemiro'
+// Optional strict rules:
+// import strictConfig from 'eslint-config-detemiro/configs/strict'
 
 export default [
-  ...detemiroConfig,
+  ...baseConfig,
   // Your customizations...
 ]
 ```
