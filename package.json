@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-detemiro",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "The best ESLint config for your project.",
   "main": "eslint.config.mjs",
   "keywords": [
