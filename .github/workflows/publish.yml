@@ -23,7 +23,7 @@ concurrency:
 jobs:
   publish:
     if: github.ref == 'refs/heads/main'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     env:
       EXPECTED_VERSION: ${{ inputs.version }}
@@ -66,7 +66,7 @@ jobs:
           archive="$RUNNER_TEMP/eslint-config-detemiro-$EXPECTED_VERSION.tgz"
           yarn pack --out "$archive"
           if [[ "$DRY_RUN" == 'true' ]]; then
-            npm publish "$archive" --dry-run --access public --tag latest
+            npm pack "$archive" --dry-run
           else
             npm publish "$archive" --access public --tag latest --provenance
           fi
