@@ -62,21 +62,27 @@ export default [
 
 5. You are incredible! Now you can use the `eslint` and `prettier` in your project.
 
+## Publishing
+
+Run the **Publish npm** GitHub Actions workflow on `main`, specifying the version already committed in `package.json`. Dry-run mode is enabled by default; disable it explicitly to publish.
+
+Configure an npm trusted publisher for `eslint-config-detemiro` with GitHub owner `RuBAN-GT`, repository `eslint-config-detemiro`, and workflow filename `publish.yml`. Leave the environment blank and allow direct `npm publish`. The workflow uses OIDC and provenance, without npm tokens or OTP codes.
+
 ## Contributing
 
 I welcome contributions! Follow these steps to contribute:
 
 1. Setup environment
-    1. Fork the repository.
-    2. Clone your forked repository.
-    3. Install dependencies by running `yarn install`.
+   1. Fork the repository.
+   2. Clone your forked repository.
+   3. Install dependencies by running `yarn install`.
 2. Making Changes
-    1. Create a new branch for your changes.
-    2. Make your changes and commit them.
-    3. Push your changes to your forked repository.
+   1. Create a new branch for your changes.
+   2. Make your changes and commit them.
+   3. Push your changes to your forked repository.
 3. Submitting a Pull Request
-    1. Go to the original repository on GitHub and click the "New pull request" button.
-    2. Select your branch and submit the pull request.
-    3. Wait for the review and address any feedback.
+   1. Go to the original repository on GitHub and click the "New pull request" button.
+   2. Select your branch and submit the pull request.
+   3. Wait for the review and address any feedback.
 
 You are the star of this project! 🌟

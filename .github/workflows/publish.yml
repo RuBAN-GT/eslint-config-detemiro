@@ -1,0 +1,72 @@
+name: Publish npm
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Expected package.json version
+        required: true
+        type: string
+      dry_run:
+        description: Validate without publishing
+        default: true
+        type: boolean
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: npm-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      EXPECTED_VERSION: ${{ inputs.version }}
+      DRY_RUN: ${{ inputs.dry_run }}
+      NPM_CONFIG_REGISTRY: https://registry.npmjs.org
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '22'
+          package-manager-cache: false
+      - name: Verify release version
+        run: |
+          node <<'NODE'
+          const assert = require('node:assert/strict');
+          const pkg = require('./package.json');
+          assert.match(process.env.EXPECTED_VERSION, /^\d+\.\d+\.\d+$/);
+          assert.equal(pkg.version, process.env.EXPECTED_VERSION);
+          assert.equal(pkg.name, 'eslint-config-detemiro');
+          NODE
+      - name: Install tooling and dependencies
+        run: |
+          npm install --global npm@11.21.0
+          corepack enable
+          yarn install --immutable
+      - name: Verify config exports
+        run: |
+          yarn build
+          yarn prettier --check package.json
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          for (const file of ['./eslint.config.mjs', './configs/base.mjs', './configs/strict.mjs']) {
+            assert.ok(Array.isArray((await import(file)).default), file);
+          }
+          NODE
+      - name: Pack and publish
+        run: |
+          archive="$RUNNER_TEMP/eslint-config-detemiro-$EXPECTED_VERSION.tgz"
+          yarn pack --out "$archive"
+          if [[ "$DRY_RUN" == 'true' ]]; then
+            npm publish "$archive" --dry-run --access public --tag latest
+          else
+            npm publish "$archive" --access public --tag latest --provenance
+          fi
